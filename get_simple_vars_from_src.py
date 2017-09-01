@@ -115,5 +115,10 @@ def get_simple_vars_from_src(src):
                 result[tgt.id] = value
     return result
 
-import doctest
-doctest.testmod(verbose=2)
+
+# 8<----------------------------------------------------------------------------
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod(verbose=2)
+
