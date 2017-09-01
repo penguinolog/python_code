@@ -133,5 +133,5 @@ class BaseDecorator(
 # 8<----------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    import doctest
-    doctest.testmod(verbose=2)
+    import doctest  # pragma: no cover
+    doctest.testmod(verbose=2)  # pragma: no cover
