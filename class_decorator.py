@@ -35,6 +35,35 @@ class BaseDecorator(
     """Base class for decorators.
 
     Implements wrapping and __call__, wrapper getter is abstract.
+
+    Note:
+        wrapper getter is called only on function call,
+        if decorator used without braces.
+
+    Usage example:
+
+    >>> class TestDecorator(BaseDecorator):
+    ...     def _get_function_wrapper(self, func):
+    ...         print('Wrapping: {}'.format(func.__name__))
+    ...         @functools.wraps(func)
+    ...         def wrapper(*args, **kwargs):
+    ...             print('call_function: {}'.format(func.__name__))
+    ...             return(func(*args, **kwargs))
+    ...         return wrapper
+
+    >>> @TestDecorator
+    ... def func_no_init():
+    ...     pass
+    >>> func_no_init()
+    Wrapping: func_no_init
+    call_function: func_no_init
+
+    >>> @TestDecorator()
+    ... def func_init():
+    ...     pass
+    Wrapping: func_init
+    >>> func_init()
+    call_function: func_init
     """
 
     __slots__ = (
@@ -92,3 +121,10 @@ class BaseDecorator(
             func=self.__func,
             id=id(self)
         )  # pragma: no cover
+
+
+# 8<----------------------------------------------------------------------------
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod(verbose=2)
