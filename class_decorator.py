@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #    Copyright 2017 Alexey Stepanov aka penguinolog
 ##
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -25,14 +26,7 @@ import typing
 PY34 = sys.version_info[:2] > (3, 3)
 
 
-class BaseDecorator(
-    type.__new__(
-        abc.ABCMeta,
-        'BaseDecorator',
-        (typing.Callable, ),
-        {}
-    )
-):
+class BaseDecorator(typing.Callable):
     """Base class for decorators.
 
     Implements wrapping and __call__, wrapper getter is abstract.
@@ -72,11 +66,6 @@ class BaseDecorator(
     >>> isinstance(func_init, TestDecorator)
     False
     """
-
-    __slots__ = (
-        '__func',
-        '__wrapped__',
-    )
 
     def __init__(self, func=None):
         """Decorator.
